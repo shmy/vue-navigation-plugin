@@ -1,0 +1,30 @@
+{
+  "name": "vue-navigation-plugin",
+  "version": "1.0.0",
+  "main": "dist/vue-navigation-plugin.cjs.js",
+  "description": "vue-router plugin",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shmy/vue-navigation-plugin"
+  },
+  "keywords": [
+    "vue",
+    "vue-router"
+  ],
+  "author": "shmy",
+  "license": "MIT",
+  "unpkg": "dist/vue-navigation-plugin.umd.min.js",
+  "scripts": {
+    "build": "node build"
+  },
+  "devDependencies": {
+    "babel-eslint": "^7.1.1",
+    "eslint": "^3.15.0",
+    "eslint-config-standard": "^6.2.1",
+    "eslint-plugin-promise": "^3.4.2",
+    "eslint-plugin-standard": "^2.0.1",
+    "rollup": "^0.52.0",
+    "rollup-plugin-buble": "^0.18.0",
+    "uglify-js": "^3.2.0"
+  }
+}

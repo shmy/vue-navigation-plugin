@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+  <script src="../dist/minify/vue-navigation-plugin.umd.min.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <router-view></router-view>
+  </div>
+  <template id="index">
+    <div>
+      <h1>this is index page</h1>
+      <router-link to="/list">go to list</router-link>
+    </div>
+  </template>
+  <template id="list">
+    <div>
+      <h1>this is list page</h1>
+      <router-link to="/">go to index</router-link>
+      <p v-for="n of 100">
+        <router-link
+        :to="`/detail/${n}`"
+        :key="n">go to {{ n }}</router-link>
+      </p>
+    </div>
+  </template>
+  <template id="detail">
+    <div>
+      <h1>this is detail page</h1>
+      <router-link to="/">go to index</router-link>
+      <router-link to="/list">go to list</router-link>
+      <p>{{ $route.params.id }}</p>
+      <!-- <router-link to="/">go to index</router-link> -->
+    </div>
+  </template>
+  <script>
+    Vue.use(VueRouter);
+    var router = new VueRouter({
+      routes: [{
+        path: "/",
+        component: { template: "#index" }
+      }, {
+        path: "/list",
+        component: { template: "#list" }
+      }, {
+        path: "/detail/:id",
+        component: { template: "#detail" }
+      }]
+    });
+    Vue.use(vueNavigationPlugin.plugin, router);
+    new Vue({
+      el: "#app",
+      router,
+      created: function () {
+        var fn = function (to, from) {
+          console.log('forward', to, from)
+        }
+        this.$navigation.on('forward', fn)
+        var self = this
+        this.$navigation.on('back', function (to, from) {
+          console.log(this)
+          // 解绑
+          self.$navigation.off('forward', fn)
+        })
+        this.$navigation.on('refresh', function (to, from) {
+          console.log('refresh', to, from)
+        })
+        setTimeout(function () {
+          // 后订阅
+          self.$navigation.on('forward', function () {
+            console.log('hahah')
+          })
+        }, 5000);
+      }
+    })
+  </script>
+</body>
+
+</html>
