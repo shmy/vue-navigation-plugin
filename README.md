@@ -12,7 +12,7 @@
 + via **CDN**
 ``` html
   <script src="https://unpkg.com/vue-navigation-plugin/dist/vue-navigation-plugin.umd.min.js"></script>
-
+```
 
 + via **NPM**
 ```bash
